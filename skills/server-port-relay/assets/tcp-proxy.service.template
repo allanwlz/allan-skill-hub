@@ -1,0 +1,22 @@
+[Unit]
+Description=Production cross-server TCP split proxy
+Requires={{TUNNEL_SERVICE}}
+After={{TUNNEL_SERVICE}} {{FORWARD_SERVICE}}
+PartOf={{TUNNEL_SERVICE}}
+
+[Service]
+Type=simple
+User={{SERVICE_USER}}
+Group={{SERVICE_GROUP}}
+LimitNOFILE=65536
+ExecStartPre={{PRD_DIR}}/bin/haproxy -c -f {{PRD_DIR}}/haproxy.cfg
+ExecStart={{PRD_DIR}}/bin/haproxy -W -db -f {{PRD_DIR}}/haproxy.cfg
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+
+[Install]
+WantedBy=multi-user.target

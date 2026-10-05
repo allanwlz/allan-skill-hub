@@ -1,0 +1,20 @@
+# Replace every {{PLACEHOLDER}} before validating or deploying.
+global
+    maxconn 4096
+    nbthread 1
+    log stdout format raw local0
+
+defaults
+    mode tcp
+    log global
+    option tcplog
+    option clitcpka
+    option srvtcpka
+    timeout connect 10s
+    timeout client 24h
+    timeout server 24h
+
+listen reserved_tcp
+    bind {{RELAY_LOCAL_IPV4}}:{{PORT_START}}-{{PORT_END}}
+    # No backend port means preserve the original destination port.
+    server target {{TARGET_WG_IPV4}}

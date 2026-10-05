@@ -1,0 +1,4 @@
+interface:
+  display_name: "跨服务器端口中转"
+  short_description: "部署和诊断跨服务器端口中转，验证 TCP 分段代理、UDP 隧道及回滚"
+  default_prompt: "使用 $server-port-relay 部署或诊断中转服务器到目标服务器的端口转发，先测试再修改生产配置。"
